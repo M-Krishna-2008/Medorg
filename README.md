@@ -30,9 +30,8 @@ MedOrg is a patient-owned medical record portal. Patients keep their records in 
 11. [AI medical-history summary](#ai-medical-history-summary)
 12. [Scripts](#scripts)
 13. [Project structure](#project-structure)
-14. [Deploy for free](#deploy-for-free)
-15. [Security and privacy](#security-and-privacy)
-16. [Troubleshooting](#troubleshooting)
+14. [Security and privacy](#security-and-privacy)
+15. [Troubleshooting](#troubleshooting)
 
 ---
 
