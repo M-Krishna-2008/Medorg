@@ -358,40 +358,6 @@ medorg/
 
 ---
 
-## Deploy for free
-
-The hosted setup uses three free services. The frontend goes to GitHub Pages, the backend to Render, and the data to Neon.
-
-### 1. Neon (database and PDF storage)
-
-1. Create a project at **neon.com**. Object Storage is available in `aws-us-east-2`, `aws-us-east-1`, `aws-eu-central-1` and `aws-ap-southeast-1`, so create the project in one of those regions.
-2. Copy the pooled connection string (`DATABASE_URL`) and the direct one (`DIRECT_URL`).
-3. Copy the bucket variables Neon provides for object storage.
-
-### 2. Render (backend)
-
-1. At **render.com**, choose **New, Web Service** (or **Blueprint** to use `render.yaml`) and connect this repository. Pick the **Free** instance type.
-2. Build and start commands are in `render.yaml`. The health check path is `/api/health`.
-3. In **Environment**, set every variable from [Hosted mode only](#hosted-mode-only), [Email](#email-brevo) and [AI](#ai-groq), plus:
-   - `NODE_ENV=production`, `DB_MODE=hosted`, `STORAGE_DRIVER=s3`, `MAX_FILE_SIZE_MB=3`
-   - `ALLOWED_ORIGINS=https://kryptonix2026.github.io`
-   - `ENABLE_DB_VIEWER=false`, `ALLOW_DB_RESET=false`
-4. Deploy, then open `https://<your-service>.onrender.com/api/health`. It should return `{"status":"ok"}`.
-
-### 3. GitHub Pages (frontend)
-
-1. In the repository, open **Settings, Pages** and set the source to **GitHub Actions**.
-2. Add the repository variables `VITE_API_URL` and `VITE_BASE_PATH` (see [Frontend build](#frontend-build-github-pages)).
-3. Push to `main`. The workflow in `.github/workflows/deploy-pages.yml` builds and publishes the site to `https://kryptonix2026.github.io/medorg/`.
-
-### Free-tier notes
-
-- Render's free service sleeps after a period of inactivity. The first request afterwards takes up to about a minute, and the app shows a "waking up" message while it retries. Opening `/api/health` a few minutes before a presentation wakes it.
-- Data lives in Neon, not on Render, so a Render restart does not erase users or PDFs. Neon's free plan has a small storage limit, so keep uploaded PDFs small.
-- Neon pauses its database when idle and wakes it on the next request, which can add a short delay.
-
----
-
 ## Security and privacy
 
 - **Passwordless sign-in.** Email one-time codes: 6 digits, expire in 10 minutes, maximum 5 attempts, stored only as salted hashes, never returned by the API and never logged.
