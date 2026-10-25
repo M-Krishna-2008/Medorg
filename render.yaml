@@ -1,0 +1,62 @@
+services:
+  - type: web
+    name: medorg-backend
+    env: node
+    buildCommand: npm ci && npx prisma generate && npm run build --prefix client
+    startCommand: npx prisma db push && npm run start
+    healthCheck:
+      path: /api/health
+    persistentDisk:
+      volume:
+        id: data-volume
+        size: 1GB
+      mountPath: /data
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: CLIENT_URL
+        fromSecret: client_url
+      - key: ALLOWED_ORIGINS
+        fromSecret: allowed_origins
+      - key: VITE_API_URL
+        fromSecret: vite_api_url
+      - key: VITE_BASE_PATH
+        fromSecret: vite_base_path
+      - key: DATA_DIR
+        value: /data
+      - key: DATABASE_URL
+        value: file:/data/medorg.db
+      - key: EMAIL_TRANSPORT
+        value: api
+      - key: BREVO_API_KEY
+        fromSecret: brevo_api_key
+      - key: BREVO_FROM_EMAIL
+        fromSecret: brevo_from_email
+      - key: BREVO_FROM_NAME
+        value: MedOrg
+      - key: BREVO_SMTP_HOST
+        value: smtp-relay.brevo.com
+      - key: BREVO_SMTP_PORT
+        value: "587"
+      - key: BREVO_SMTP_USER
+        fromSecret: brevo_smtp_user
+      - key: BREVO_SMTP_PASSWORD
+        fromSecret: brevo_smtp_password
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_BASE_URL
+        value: https://api.groq.com/openai/v1
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-20b
+      - key: MAX_FILE_SIZE_MB
+        value: "10"
+      - key: SESSION_DAYS
+        value: "7"
+      - key: ENABLE_DB_VIEWER
+        value: "false"
+      - key: ALLOW_DB_RESET
+        value: "false"
+    domains:
+      - yourdomain.com
