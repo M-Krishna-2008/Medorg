@@ -7,7 +7,9 @@ MedOrg is a patient-owned medical record portal. Patients keep their records in 
 | | |
 |---|---|
 | **Live app (fully functional)** | https://kryptonix2026.github.io/medorg/ |
-| **Demo instruction video** | `<ADD VIDEO LINK HERE>` |
+| **Sample report pdf for test uploading and summarizing feature** | https://file.garden/aHpR4b_Q5gZVMOAA/Clinical_Consultation_Report.pdf |
+| **Demo instruction video** | https://drive.google.com/file/d/13gF5pbDzMo6vubuu26g7IkHU2Upj5KZm/view?usp=sharing |
+| **Note** | https://kryptonix2026.github.io/medorg/ |
 
 > The live app runs on free hosting. If nobody has used it for a while, the first request can take up to a minute while the server wakes up. Please wait and refresh once.
 
